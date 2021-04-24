@@ -12,6 +12,20 @@ const getTopStories = async (req, res) => {
   }
 };
 
+const getStory = async (req, res) => {
+  try {
+    const story = await Story.findOne({ id: +req.params.id}).exec();
+  
+    res.status(200).send({
+      status: 200,
+      data: story
+    });
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+
 const postStory = async (req, res) => {
   const data = req.body;
   const story = new Story(data);
@@ -29,5 +43,6 @@ const postStory = async (req, res) => {
 
 module.exports = {
   getTopStories,
-  postStory
+  postStory,
+  getStory
 };

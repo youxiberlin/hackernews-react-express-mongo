@@ -15,7 +15,7 @@ const CommentItem = ({ comment, story }) => {
     {!showReplyForm ? (
       <button
         type="button"
-        class="btn btn-light btn-sm"
+        className="btn btn-light btn-sm"
         onClick={() => setShowReplyForm(!showReplyForm)}
       >
         Reply

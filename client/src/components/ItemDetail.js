@@ -48,7 +48,7 @@ const ItemDetail = () => {
           </div>
           <PostComment story={story} />
           {comments.map((comment) => (
-            <CommentItem comment={comment} story={story}/>
+            <CommentItem comment={comment} story={story} key={comment.id}/>
           ))}
         </div>
       ) : <Spinner />

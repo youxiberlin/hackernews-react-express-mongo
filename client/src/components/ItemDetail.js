@@ -14,8 +14,8 @@ const ItemDetail = () => {
   useEffect(() => {
     const getStory = async (id) => {
       try {
-        const { data } = await axios.get(`https://hacker-news.firebaseio.com/v0/item/${id}.json`);
-        setStory(data);
+        const { data } = await axios.get(`http://localhost:8080/story/${itemId}`);
+        setStory(data.data);
       } catch (e) {
         console.log(e);
         setStory(story);

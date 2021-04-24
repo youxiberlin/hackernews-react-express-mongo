@@ -4,6 +4,7 @@ import axios from 'axios';
 import Spinner from './Spinner';
 import StoryItem from './StoryItem';
 import CommentList from './CommentList';
+import PostComment from './PostComment';
 import makeCommentsTree from '../helper/makeCommentsTree';
 
 const ItemDetail = () => {
@@ -46,6 +47,7 @@ const ItemDetail = () => {
           <div className="pl-md-4">
             <StoryItem story={story} pageType="comments" />
           </div>
+          <PostComment story={story} />
           <CommentList comments={comments} />
         </div>
       ) : <Spinner />

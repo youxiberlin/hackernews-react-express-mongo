@@ -1,4 +1,5 @@
 const Story = require('./models/story');
+const Comment = require('./models/comment');
 
 const getTopStories = async (req, res) => {
   try {
@@ -21,10 +22,9 @@ const getStory = async (req, res) => {
       data: story
     });
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
-}
-
+};
 
 const postStory = async (req, res) => {
   const data = req.body;
@@ -35,14 +35,28 @@ const postStory = async (req, res) => {
       console.log(story,'saved');
       res.status(200).send({
         message: 'Successfully saved!'
-      })
+      });
     }
   });
+}
 
+const postComment = async (req, res) => {
+  const data = req.body;
+  const comment = new Comment(data);
+  comment.save((err) => {
+    if (err) console.log(err)
+    else {
+      console.log(comment,'saved');
+      res.status(200).send({
+        message: 'Successfully saved!'
+      });
+    }
+  });
 }
 
 module.exports = {
   getTopStories,
   postStory,
-  getStory
+  getStory,
+  postComment,
 };

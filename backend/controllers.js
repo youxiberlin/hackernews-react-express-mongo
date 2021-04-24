@@ -5,7 +5,6 @@ const getTopStories = async (req, res) => {
   try {
     const topStories = await Story.find();
     res.status(200).send({
-      status: 200,
       data: topStories
     });
   } catch (e) {
@@ -18,13 +17,21 @@ const getStory = async (req, res) => {
     const story = await Story.findOne({ id: +req.params.id}).exec();
   
     res.status(200).send({
-      status: 200,
       data: story
     });
   } catch (e) {
     console.log(e);
   }
 };
+
+const getTopComments = async (req, res) => {
+  const { storyId } = req.params;
+  const arr = await Comment.find({ parent: +storyId });
+  console.log(arr)
+  res.status(200).send({
+    data: arr,
+  })
+}
 
 const postStory = async (req, res) => {
   const data = req.body;
@@ -59,4 +66,5 @@ module.exports = {
   postStory,
   getStory,
   postComment,
+  getTopComments
 };

@@ -3,9 +3,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from './Spinner';
 import StoryItem from './StoryItem';
-import CommentList from './CommentList';
 import PostComment from './PostComment';
-import makeCommentsTree from '../helper/makeCommentsTree';
+import CommentItem from './CommentItem';
 
 const ItemDetail = () => {
   let { itemId } = useParams();
@@ -15,7 +14,7 @@ const ItemDetail = () => {
   useEffect(() => {
     const getStory = async (id) => {
       try {
-        const { data } = await axios.get(`http://localhost:8080/story/${itemId}`);
+        const { data } = await axios.get(`http://localhost:8080/story/${id}`);
         setStory(data.data);
       } catch (e) {
         console.log(e);
@@ -29,8 +28,8 @@ const ItemDetail = () => {
     if (story) {
       const getCommentsTree = async (parent) => {
         try {
-          const commentsTree = await makeCommentsTree(parent);
-          setComments(commentsTree);
+          const { data } = await axios.get(`http://localhost:8080/topComments/${story.id}`);;
+          setComments(data.data);
         } catch (e) {
           console.log(e);
           setComments(comments);
@@ -45,10 +44,12 @@ const ItemDetail = () => {
     comments ? (
         <div className="container bg-light py-3">
           <div className="pl-md-4">
-            <StoryItem story={story} pageType="comments" />
+            {story ? <StoryItem story={story} pageType="comments" /> : null}
           </div>
           <PostComment story={story} />
-          <CommentList comments={comments} />
+          {comments.map((comment) => (
+            <CommentItem comment={comment} story={story}/>
+          ))}
         </div>
       ) : <Spinner />
   );

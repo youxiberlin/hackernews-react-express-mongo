@@ -3,25 +3,17 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const { port, mongoRoute } = require('./config');
-const { initializeMongoDB, insertStory, insertTopStories } = require('./services/mongodb');
+const { initializeMongoDB } = require('./services/mongodb');
 const logger = require('./services/logger');
-const {
-  getTopStories,
-  postStory,
-  getStory,
-  postComment,
-} = require('./controllers');
+const routes = require('./routes');
 
 const app = express();
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.get('/', (req, res) => res.send('hello world'));
-app.get('/topStories', getTopStories)
-app.post('/story', postStory);
-app.post('/comment', postComment);
-app.get('/story/:id', getStory);
+app.use(routes);
+
 app.listen(port, () => logger.info(`App listening at port ${port}`));
 initializeMongoDB(mongoRoute)
   // .then(() => insertTopStories())

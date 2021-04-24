@@ -5,6 +5,7 @@ const commentSchema = new Schema({
   by: { type: String },
   id: { type: Number },
   parent: { type: Number },
+  storyId: { type: Number },
   kids: { type: Array },
   time: { type: Number },
   text: { type: String },

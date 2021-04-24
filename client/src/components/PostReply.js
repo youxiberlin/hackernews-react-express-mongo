@@ -9,7 +9,7 @@ const PostReply = ({ comment, story }) => {
       by: null,
       id: Math.floor(Math.random() * 10000),
       parent: +comment.id,
-      story: +story.id,
+      storyId: +story.id,
       kids: [],
       time: Math.floor(Date.now() /1000),
       text,

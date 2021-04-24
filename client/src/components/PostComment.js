@@ -8,6 +8,7 @@ const PostComment = ({ story }) => {
     const data = {
       by: null,
       id: Math.floor(Math.random() * 10000),
+      storyId: +story.id,
       parent: +story.id,
       kids: [],
       time: Math.floor(Date.now() /1000),

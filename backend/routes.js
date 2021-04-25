@@ -5,6 +5,7 @@ const {
   getStory,
   postComment,
   getTopComments,
+  getComments,
 } = require('./controllers');
 
 const router = express.Router();
@@ -15,5 +16,6 @@ router.post('/story', postStory);
 router.post('/comment', postComment);
 router.get('/topComments/:storyId', getTopComments);
 router.get('/story/:id', getStory);
+rouer.get('./comments/:storyId', getComments);
 
 module.exports = router;

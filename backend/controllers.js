@@ -25,26 +25,41 @@ const getStory = async (req, res) => {
 };
 
 const getTopComments = async (req, res) => {
-  const { storyId } = req.params;
-  const arr = await Comment.find({ parent: +storyId });
-  console.log(arr)
-  res.status(200).send({
-    data: arr,
-  })
-}
+  try {
+    const { storyId } = req.params;
+    const arr = await Comment.find({ parent: +storyId });
+    res.status(200).send({
+      data: arr,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const getComments = async (req, res) => {
+  try {
+    const { storyId } = req.params;
+    const arr = await Comment.find({ storyId: +storyId });
+    console.log(arr)
+    res.status(200).send({
+      data: arr,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const postStory = async (req, res) => {
-  const data = req.body;
-  const story = new Story(data);
-  story.save((err) => {
-    if (err) console.log(err)
-    else {
-      console.log(story,'saved');
-      res.status(200).send({
-        message: 'Successfully saved!'
-      });
-    }
-  });
+  try {
+    const data = req.body;
+    const story = new Story(data);
+    story.save();
+    res.status(200).send({
+      message: 'Successfully saved!'
+    });
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 const postComment = async (req, res) => {
@@ -80,5 +95,6 @@ module.exports = {
   postStory,
   getStory,
   postComment,
+  getComments,
   getTopComments
 };

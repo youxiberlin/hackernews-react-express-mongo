@@ -13,8 +13,11 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(routes);
+app.use('/login', (req, res) => {
+  res.send({
+    token: 'test123'
+  });
+});
 
 app.listen(port, () => logger.info(`App listening at port ${port}`));
-initializeMongoDB(mongoRoute)
-  // .then(() => insertTopStories())
-  // .catch(e => console.log(e))
+initializeMongoDB(mongoRoute);

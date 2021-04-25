@@ -4,11 +4,13 @@ import Spinner from './Spinner';
 import StoryList from './StoryList';
 import PostStory from './PostStory';
 import Login from './Login';
+import useToken from './useToken';
 import backend from '../helper/backend';
 
 const Home = () => {
   const [stories, setStories] = useState([]);
   const [dataFetching, setDataFetching] = useState(false);
+  const { token, setToken } = useToken();
 
   useEffect(() => {
     (async () => {
@@ -28,7 +30,9 @@ const Home = () => {
   return (
     stories.length ? (
       <div className="container bg-light py-3">
-        <Login />
+        {!token ? (
+          <Login setToken={setToken}/>
+        ) : null}
         <PostStory />
         <StoryList stories={stories} pageType="home" />
         <div>

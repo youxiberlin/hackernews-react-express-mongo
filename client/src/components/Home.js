@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Spinner from './Spinner';
 import StoryList from './StoryList';
 import PostStory from './PostStory';
+import Login from './Login';
 import backend from '../helper/backend';
 
 const Home = () => {
@@ -27,6 +28,7 @@ const Home = () => {
   return (
     stories.length ? (
       <div className="container bg-light py-3">
+        <Login />
         <PostStory />
         <StoryList stories={stories} pageType="home" />
         <div>

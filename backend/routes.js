@@ -14,8 +14,8 @@ router.get('/', (req, res) => res.send('hello world'));
 router.get('/topStories', getTopStories);
 router.post('/story', postStory);
 router.post('/comment', postComment);
+router.get('/comments/:storyId', getComments);
 router.get('/topComments/:storyId', getTopComments);
 router.get('/story/:id', getStory);
-rouer.get('./comments/:storyId', getComments);
 
 module.exports = router;

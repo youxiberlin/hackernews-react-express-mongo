@@ -40,7 +40,6 @@ const getComments = async (req, res) => {
   try {
     const { storyId } = req.params;
     const arr = await Comment.find({ storyId: +storyId });
-    console.log(arr)
     res.status(200).send({
       data: arr,
     });

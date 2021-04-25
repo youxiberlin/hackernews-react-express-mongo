@@ -30,26 +30,30 @@ const PostStory = () => {
     }
   }
   return (
-    <div className="container">
-      <form onSubmit={onSubmitHandler}>
-      <label className="form-label">Title</label>
+    <form
+      className="m-3 d-flex flex-column"
+      onSubmit={onSubmitHandler}
+    >
+      <label>
+        <p>Title</p>
         <input
-          type="text"
           value={title}
+          type="text"
           onChange={(e) => setTitle(e.target.value)}
         />
-        <label className="form-label">URL</label> 
+      </label>
+      <label>
+        <p>URL</p>
         <input
           type="text"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />
-        <input
-          type="submit"
-          value="Submit" 
-        />
-      </form>
-    </div>
+      </label>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
   );
 };
 

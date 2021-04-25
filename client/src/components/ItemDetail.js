@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import Spinner from './Spinner';
 import StoryItem from './StoryItem';
 import PostComment from './PostComment';
 import CommentsList from './CommentsList';
+import backend from '../helper/backend';
 
 const ItemDetail = () => {
   let { itemId } = useParams();
@@ -14,7 +14,7 @@ const ItemDetail = () => {
   useEffect(() => {
     const getStory = async (id) => {
       try {
-        const { data } = await axios.get(`http://localhost:8080/story/${id}`);
+        const { data } = await backend.get(`/story/${id}`);
         setStory(data.data);
       } catch (e) {
         console.log(e);
@@ -26,9 +26,9 @@ const ItemDetail = () => {
 
   useEffect(() => {
     if (story) {
-      const getComments = async (parent) => {
+      const getComments = async (story) => {
         try {
-          const { data } = await axios.get(`http://localhost:8080/comments/${story.id}`);
+          const { data } = await backend.get(`/comments/${story.id}`);
           const comments = data.data;
           setComments(comments);
         } catch (e) {

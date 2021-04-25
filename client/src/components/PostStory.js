@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
+import backend from '../helper/backend';
 
 const PostStory = () => {
   const [url, setUrl] = useState('');
@@ -19,10 +19,6 @@ const PostStory = () => {
     }
     e.preventDefault();
     try {
-      const backend = axios.create({
-        baseURL: 'http://localhost:8080',
-        timeout: 1000,
-      });
       await backend({
         method: 'post',
         url: '/story',

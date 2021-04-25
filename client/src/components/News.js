@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, Redirect, Link } from 'react-router-dom';
-import axios from 'axios';
 import Spinner from './Spinner';
 import StoryList from './StoryList';
-import getTopStories from '../helper/getTopStories';
+import backend from '../helper/backend';
 
 const News = () => {
   let { pageId } = useParams();
@@ -14,8 +13,8 @@ const News = () => {
   useEffect(() => {
     (async () => {
       try {
-        const data = await getTopStories(page);
-        setStories(data);
+        const { data } = await backend.get('/topStories');
+        setStories(data.data);
       } catch (e) {
         console.log(e);
         setStories(stories);
@@ -27,8 +26,8 @@ const News = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data: topStories } = await axios.get('https://hacker-news.firebaseio.com/v0/topstories.json');
-        setTotalPage(Math.ceil(topStories.length / 30));
+        const { data } = await backend.get('/topStories');
+        setTotalPage(Math.ceil(data.data.length / 30));
       } catch (e) {
         console.log(e);
         setTotalPage(totalPage);

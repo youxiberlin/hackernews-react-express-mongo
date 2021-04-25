@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
+import backend from '../helper/backend';
 
 const PostReply = ({ comment, story }) => {
   const [text, setText] = useState('');
@@ -17,10 +17,6 @@ const PostReply = ({ comment, story }) => {
     }
     e.preventDefault();
     try {
-      const backend = axios.create({
-        baseURL: 'http://localhost:8080',
-        timeout: 1000,
-      });
       await backend({
         method: 'post',
         url: '/comment',

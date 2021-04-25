@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import Spinner from './Spinner';
 import StoryList from './StoryList';
 import PostStory from './PostStory';
+import backend from '../helper/backend';
 
 const Home = () => {
   const [stories, setStories] = useState([]);
@@ -13,7 +13,7 @@ const Home = () => {
     (async () => {
       try {
         setDataFetching(true);
-        const { data } = await axios.get('http://localhost:8080/topStories');
+        const { data } = await backend.get('/topStories');
         setStories(data.data);
         setDataFetching(false);
       } catch (e) {

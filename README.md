@@ -1,7 +1,7 @@
 # Hacker News with React, Express, MongoDB
 
 This is my own version of [Hacker News](https://news.ycombinator.com/).  
-Frontend was developed with React, and the backend was with Express and MongoDB.  
+Frontend was developed with React, and the backend with Express and MongoDB.  
 
 ## Getting Started
 
@@ -40,7 +40,7 @@ The default port for the server is `8080`.
 ### How to use the application
 
 #### Frontend  
-You can post a set of a URL and a title to list on the site.  
+You can post a set of a URL and a title.  
 For each story, you can post comments or reply to comments.  
 
 #### Backend

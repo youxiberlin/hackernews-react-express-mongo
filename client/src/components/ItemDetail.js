@@ -4,7 +4,7 @@ import axios from 'axios';
 import Spinner from './Spinner';
 import StoryItem from './StoryItem';
 import PostComment from './PostComment';
-import CommentItem from './CommentItem';
+import CommentsList from './CommentsList';
 
 const ItemDetail = () => {
   let { itemId } = useParams();
@@ -26,17 +26,18 @@ const ItemDetail = () => {
 
   useEffect(() => {
     if (story) {
-      const getCommentsTree = async (parent) => {
+      const getComments = async (parent) => {
         try {
-          const { data } = await axios.get(`http://localhost:8080/topComments/${story.id}`);;
-          setComments(data.data);
+          const { data } = await axios.get(`http://localhost:8080/comments/${story.id}`);
+          const comments = data.data;
+          setComments(comments);
         } catch (e) {
           console.log(e);
           setComments(comments);
         }
       };
 
-      getCommentsTree(story);
+      getComments(story);
     }
   }, [story]);
 
@@ -47,9 +48,7 @@ const ItemDetail = () => {
             {story ? <StoryItem story={story} pageType="comments" /> : null}
           </div>
           <PostComment story={story} />
-          {comments.map((comment) => (
-            <CommentItem comment={comment} story={story} key={comment.id}/>
-          ))}
+          <CommentsList comments={comments} story={story} />
         </div>
       ) : <Spinner />
   );

@@ -48,17 +48,31 @@ const postStory = async (req, res) => {
 }
 
 const postComment = async (req, res) => {
-  const data = req.body;
-  const comment = new Comment(data);
-  comment.save((err) => {
-    if (err) console.log(err)
-    else {
-      console.log(comment,'saved');
-      res.status(200).send({
-        message: 'Successfully saved!'
-      });
+  try {
+    const data = req.body;
+    if (data.parent === data.storyId) {
+      const story = await Story.findOne({ id: +data.storyId });
+      story.kids.push(data.id);
+      await story.save();
+    } else {
+      const parentComment = await Comment.findOne({ id: +data.parent });
+      parentComment.kids.push(data.id);
+      await parentComment.save();
     }
-  });
+
+    const comment = new Comment(data);
+    comment.save((err) => {
+      if (err) console.log(err)
+      else {
+        console.log(comment,'saved');
+        res.status(200).send({
+          message: 'Successfully saved!'
+        });
+      }
+    });
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 module.exports = {

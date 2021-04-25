@@ -18,11 +18,10 @@ const CommentsList = ({ comments, story }) => {
   const commentsMap = indexBy(prop('id'), comments);
   const commentsTree = makeCommentsTree(story, comments, commentsMap);
 
-  const renderComments = (comments) => {
+  const renderComments = () => {
     const getKids = (parentObj) => {
       if (!parentObj.kids) return null;
       return values(parentObj.kids)
-        .filter(item => !item.deleted)
         .sort((a, b) => b.time - a.time)
         .map((item) => (
           <Comment
@@ -41,7 +40,7 @@ const CommentsList = ({ comments, story }) => {
     );
   };
 
-  return renderComments(comments)
+  return renderComments();
 };
 
 export default CommentsList;

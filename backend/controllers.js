@@ -64,8 +64,8 @@ const postStory = async (req, res) => {
 const postComment = async (req, res) => {
   try {
     const data = req.body;
+    const story = await Story.findOneAndUpdate({ id: +data.storyId }, {$inc: { descendants: 1}}).exec();
     if (data.parent === data.storyId) {
-      const story = await Story.findOne({ id: +data.storyId });
       story.kids.push(data.id);
       await story.save();
     } else {
@@ -78,7 +78,6 @@ const postComment = async (req, res) => {
     comment.save((err) => {
       if (err) console.log(err)
       else {
-        console.log(comment,'saved');
         res.status(200).send({
           message: 'Successfully saved!'
         });

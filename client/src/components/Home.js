@@ -4,18 +4,20 @@ import axios from 'axios';
 import Spinner from './Spinner';
 import StoryList from './StoryList';
 import PostStory from './PostStory';
-import getTopStories from '../helper/getTopStories';
 
 const Home = () => {
   const [stories, setStories] = useState([]);
+  const [dataFetching, setDataFetching] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
-        // const data = await getTopStories(0);
+        setDataFetching(true);
         const { data } = await axios.get('http://localhost:8080/topStories');
         setStories(data.data);
+        setDataFetching(false);
       } catch (e) {
+        setDataFetching(false);
         console.log(e);
         setStories(stories);
       }
@@ -31,7 +33,11 @@ const Home = () => {
           <Link to='news/1'>More</Link>
         </div>
       </div>
-    ) : <Spinner />
+    ) : dataFetching ? (
+      <Spinner />
+    ) : (
+      <PostStory />
+    )
    );
 };
 

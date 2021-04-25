@@ -8,7 +8,7 @@ const PostStory = () => {
   const onSubmitHandler = async (e) => {
     const data = {
       by: null,
-      decendants: null,
+      descendants: 0,
       id: Math.floor(Math.random() * 10000),
       kids: [],
       score: 0,
